@@ -104,19 +104,4 @@ public class Main {
 			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
 		}
 	}
-
-	public static void clearScreen() {
-		try {
-			String osName = System.getProperty("os.name");
-			System.out.println(osName);
-			if (osName.contains("Windows")) {
-				Runtime.getRuntime().exec("cmd /c cls");
-			} else {
-				Runtime.getRuntime().exec("clear");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
