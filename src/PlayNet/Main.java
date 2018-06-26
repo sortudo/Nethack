@@ -43,6 +43,9 @@ public class Main {
 			}
 		}
 		loop = true;
+		
+		
+		loop = true;
 		System.out.println("What is your gender?");
 		System.out.println("1 - Male");
 		System.out.println("2 - Female");
@@ -64,6 +67,7 @@ public class Main {
 				classe = EntradaTeclado.leInt();
 			}
 		}
+		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + );
 		g.Draw();
 		while(p.getLife() > 0) {
 			p.action(g, EntradaTeclado.leString());

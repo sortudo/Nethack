@@ -69,4 +69,8 @@ public class Player extends GameObject {
 	public void setGender(String g) {
 		gender = g;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
 }
