@@ -9,4 +9,7 @@ public class Armadura extends Item{
 		weight = w;
 	}
 	
+	public int getAC() {
+		return AC;
+	}
 }

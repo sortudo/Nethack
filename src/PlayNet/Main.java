@@ -11,7 +11,7 @@ import Race.Orc;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		int classe;
+		int classe, time = 0;
 		boolean loop = true;
 		Game g = new Game(8,8);
 		Player p = new Player(4,4);
@@ -68,8 +68,6 @@ public class Main {
 			}
 		}
 		
-		
-		
 		loop = true;
 		System.out.println("What is your gender?");
 		System.out.println("1 - Male");
@@ -94,11 +92,16 @@ public class Main {
 		}
 		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + p.getRace() + " " + p.getClasse() + ".");
 		g.Draw();
+		System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
+		System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
 		while(p.getLife() > 0) {
 			p.action(g, EntradaTeclado.leString());
+			time++;
 			//clearScreen();
 			System.out.println("-----------------------------------------------");
-			g.Draw(); 
+			g.Draw();
+			System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
+			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
 		}
 	}
 

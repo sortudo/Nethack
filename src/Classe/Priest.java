@@ -4,7 +4,7 @@ import Itens.Robe;
 
 public class Priest extends Classe{
 	public Priest() {
-		super("Priest", 12, 10, 18, 12, 13, 10, new Mace(), new Robe());
+		super("Priest", 12, 10, 18, 12, 13, 10, 12, 7, new Mace(), new Robe());
 		// TODO Auto-generated constructor stub
 	}
 	
