@@ -18,7 +18,7 @@ import poo.nethack.level.Level;
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
-	
+	// Tamanho da tela
 	public static final int WIDTH = 160;
 	public static final int HEIGHT = WIDTH/12 * 9;
 	public static final int SCALE = 3;
@@ -38,6 +38,9 @@ public class Game extends Canvas implements Runnable {
 	public Level level;
 	public Player player;
 	
+	/** Construtor da classe Game iniciando o frame do jogo
+	 * 
+	 */
 	public Game() {
 		// Coloca tamanho do Canvas que sera utilizado
 		setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
@@ -62,6 +65,9 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	@Override
+	/** Jogo rodando e fazendo a atualizacao da logica e renderizando
+	 * 
+	 */
 	public void run() {
 		// Calculo do frame de atualizacao
 		long lastTime = System.nanoTime();
@@ -111,6 +117,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	/** Inicia as variaveis do jogo
+	 * 
+	 */
 	public void init() {
 		int index = 0;
 		for (int r = 0; r < 6; r++) {
@@ -126,18 +135,24 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		
-		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite.png"));
+		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
 		input = new InputHandler(this);
 		level = new Level(64, 64);
 		player = new Player(level, 0, 0, input);
 		level.addEntity(player);
 	}
 	
+	/** Inicia a Thread do jogo
+	 * 
+	 */
 	public synchronized void start() {
 		running = true;
 		new Thread(this).start();
 	}
 	
+	/** Funcao para finalizar o jogo
+	 * 
+	 */
 	public synchronized void stop() {
 	}
 	
@@ -148,7 +163,6 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public void tick() {
 		tickCount++;
-		
 		
 		level.tick();
 	}
@@ -165,11 +179,21 @@ public class Game extends Canvas implements Runnable {
 			return; 
 		}
 		
+		// Atualiza a posicao da tela de acordo com a posicao do personagem
 		int xOffset = player.x - (screen.width/2);
 		int yOffset = player.y - (screen.height/2);
 		
+		// Imprime na tela o nivel e o player
 		level.renderTiles(screen, xOffset, yOffset);
 		level.renderEntities(screen);
+		
+		 for (int y = 0; y < screen.height; y++) {
+			 for (int x = 0; x < screen.width; x++) {
+				 int colourCode = screen.pixels[x + y * screen.width];
+				 if (colourCode < 255)
+					 pixels[x + y * WIDTH] = colours[colourCode];
+			 }
+		 }
 		
 		Graphics g = bs.getDrawGraphics();
 		

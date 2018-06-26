@@ -14,7 +14,12 @@ public abstract class Tile {
 	protected boolean solid;
 	protected boolean emitter;
 
-	
+	/** Construtor da classe Tile para definir cada objeto do mapa 
+	 * 
+	 * @param id
+	 * @param isSolid
+	 * @param isEmitter
+	 */
 	public Tile(int id, boolean isSolid, boolean isEmitter){
 		this.id = (byte) id;
 		if (tiles[id] != null) throw new RuntimeException("Duplicate tile id on " + id);

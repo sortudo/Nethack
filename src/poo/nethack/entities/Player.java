@@ -9,7 +9,14 @@ public class Player extends Mob {
 	
 	private InputHandler input;
 	private int colour = Colours.get(-1, 111, 145, 543);
-
+	
+	/** Construtor Player
+	 * 
+	 * @param level
+	 * @param x
+	 * @param y
+	 * @param input
+	 */
 	public Player(Level level, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 1);
 		this.input = input;
@@ -21,6 +28,9 @@ public class Player extends Mob {
 	}
 
 	@Override
+	/** Verifica se existe alguma alteracao nos valores e realiza nova logica
+	 * 
+	 */
 	public void tick() {
 		int xa = 0;
 		int ya = 0;
@@ -42,6 +52,9 @@ public class Player extends Mob {
 	}
 
 	@Override
+	/** Renderiza nova logica na tela
+	 * 
+	 */
 	public void render(Screen screen) {
 		int xTile = 0;
 		int yTile = 28;

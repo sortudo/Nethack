@@ -13,6 +13,10 @@ public class SpriteSheet {
 	
 	public int[] pixels;
 	
+	/** Construtor da class SpriteSheet que carrega sprite do jogo
+	 * 
+	 * @param path caminho da imagem 
+	 */
 	public SpriteSheet(String path) {
 		BufferedImage image = null;
 		

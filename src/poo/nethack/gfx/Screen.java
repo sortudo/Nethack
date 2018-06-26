@@ -18,6 +18,12 @@ public class Screen {
 	
 	public SpriteSheet sheet;
 	
+	/** Construtor da Screen
+	 * 
+	 * @param width
+	 * @param height
+	 * @param sheet
+	 */
 	public Screen(int width, int height, SpriteSheet sheet) {
 		this.width = width;
 		this.height = height;
@@ -31,10 +37,25 @@ public class Screen {
 		this.yOffset = yOffset;
 	}
 	
+	/** Funcao auxiliar para nao precisar colocar se vai fazer 'mirror'
+	 * 
+	 * @param xPos
+	 * @param yPos
+	 * @param tile
+	 * @param colour
+	 */
 	public void render(int xPos, int yPos, int tile, int colour) {
 		render(xPos, yPos, tile, colour, 0x00);
 	}
 	
+	/** Funcao para identificar o pixel da sheet e colocar na tela
+	 * 
+	 * @param xPos
+	 * @param yPos
+	 * @param tile
+	 * @param colour
+	 * @param mirrorDir
+	 */
 	public void render(int xPos, int yPos, int tile, int colour, int mirrorDir) {
 		xPos -= xOffset;
 		yPos -= yOffset;

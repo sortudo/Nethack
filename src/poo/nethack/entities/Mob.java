@@ -11,6 +11,14 @@ public abstract class Mob extends Entity{
 	protected int movingDir = 1;
 	protected int scale = 1;
 	
+	/** Construtor Mob
+	 * 
+	 * @param level
+	 * @param name
+	 * @param x
+	 * @param y
+	 * @param speed
+	 */
 	public Mob(Level level, String name, int x, int y, int speed) {
 		super(level);
 		
@@ -20,6 +28,9 @@ public abstract class Mob extends Entity{
 		this.y = y;
 	}
 	
+	/** Muda a direcao do player de acordo com os valores de xa e ya
+	 * 
+	 */
 	public void move (int xa, int ya) {
 		if (xa != 0 && ya != 0) {
 			move(xa, 0);
