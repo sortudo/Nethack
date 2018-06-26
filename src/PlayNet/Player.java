@@ -5,10 +5,11 @@ import java.util.function.*;
 
 import Classe.Classe;
 import Itens.Item;
+import Race.Race;
 public class Player extends GameObject {
 	private String name;
 	private Classe role;
-	private String race;
+	private Race race;
 	private String gender;
 	private ArrayList<Item> Inventory;
 	public static final char REPR = 'P';
@@ -72,5 +73,17 @@ public class Player extends GameObject {
 	
 	public String getGender() {
 		return gender;
+	}
+	
+	public void setRace(Race r) {
+		race = r;
+	}
+	
+	public String getRace() {
+		return race.getName();
+	}
+	
+	public String getClasse() {
+		return role.getName();
 	}
 }

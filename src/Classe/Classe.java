@@ -25,4 +25,8 @@ public abstract class Classe {
 		Cha = cha;
 		arm = ar;
 	}
+	
+	public String getName() {
+		return name;
+	}
 }

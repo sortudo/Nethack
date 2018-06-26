@@ -5,6 +5,9 @@ import Classe.Barbarian;
 import Classe.Knight;
 import Classe.Priest;
 import Classe.Rogue;
+import Race.Elf;
+import Race.Human;
+import Race.Orc;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -43,6 +46,28 @@ public class Main {
 			}
 		}
 		loop = true;
+		System.out.println("What is your race?");
+		System.out.println("1 - Human");
+		System.out.println("2 - Elf");
+		System.out.println("3 - Orc");
+		classe = EntradaTeclado.leInt();
+		while(loop) {
+			if(classe == 1) {
+				p.setRace(new Human());
+				loop = false;
+			}else if (classe == 2) {
+				p.setRace(new Elf());
+				loop = false;
+			}else if (classe == 3) {
+				p.setRace(new Orc());
+				loop = false;
+			}else {
+				System.out.println("Number incorrect!");
+				System.out.println("What is your race?");
+				classe = EntradaTeclado.leInt();
+			}
+		}
+		
 		
 		
 		loop = true;
@@ -67,7 +92,7 @@ public class Main {
 				classe = EntradaTeclado.leInt();
 			}
 		}
-		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + );
+		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + p.getRace() + " " + p.getClasse() + ".");
 		g.Draw();
 		while(p.getLife() > 0) {
 			p.action(g, EntradaTeclado.leString());
