@@ -10,11 +10,12 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import poo.nethack.gfx.Colours;
+import poo.nethack.entities.Player;
 import poo.nethack.gfx.Screen;
 import poo.nethack.gfx.SpriteSheet;
+import poo.nethack.level.Level;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -34,6 +35,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private Screen screen;
 	public InputHandler input;
+	public Level level;
+	public Player player;
 	
 	public Game() {
 		// Coloca tamanho do Canvas que sera utilizado
@@ -123,8 +126,11 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		
-		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/santa.png"));
+		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite.png"));
 		input = new InputHandler(this);
+		level = new Level(64, 64);
+		player = new Player(level, 0, 0, input);
+		level.addEntity(player);
 	}
 	
 	public synchronized void start() {
@@ -135,20 +141,16 @@ public class Game extends Canvas implements Runnable{
 	public synchronized void stop() {
 	}
 	
+	private int x = 0, y = 0;
+	
 	/** Atualizar as variaveis e logica do jogo
 	 * 
 	 */
 	public void tick() {
 		tickCount++;
 		
-		if (input.up.isPressed())
-			screen.yOffset--;
-		if (input.down.isPressed())
-			screen.yOffset++;
-		if (input.left.isPressed())
-			screen.xOffset--;
-		if (input.right.isPressed())
-			screen.xOffset++;
+		
+		level.tick();
 	}
 	
 	/** Atualiza o jogo de acordo com a logica da tick
@@ -163,19 +165,11 @@ public class Game extends Canvas implements Runnable{
 			return; 
 		}
 		
-		for (int y = 0; y < 32; y++) {
-			for (int x = 0; x < 32; x++) {
-				screen.render(x << 3, y << 3, 0, Colours.get(555, 500, 050, 005));
-			}
-		}
+		int xOffset = player.x - (screen.width/2);
+		int yOffset = player.y - (screen.height/2);
 		
-
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				int colourCode = screen.pixels[x + y * screen.width];
-				if (colourCode < 255) pixels[x + y * WIDTH] = colours[colourCode];
-			}
-		}
+		level.renderTiles(screen, xOffset, yOffset);
+		level.renderEntities(screen);
 		
 		Graphics g = bs.getDrawGraphics();
 		
