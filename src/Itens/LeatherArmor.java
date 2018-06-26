@@ -1,6 +1,11 @@
 package Itens;
 
-
+/**
+ * class LeatherArmor: Armadura leve e com AC muito forte
+ * Armadura inicial do Rogue
+ * @author braga
+ *
+ */
 public class LeatherArmor extends Armadura{
 
 	public LeatherArmor() {

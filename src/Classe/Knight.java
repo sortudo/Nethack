@@ -2,6 +2,13 @@ package Classe;
 import Itens.LongSword;
 import Itens.RingMail;
 
+/**
+ * class Knight: A classe mais padrão dos rpgs
+ * Tem um escudo que aumenta a AC do Knight
+ * A habilidade secreta é que em alguns momentos o escudo anula totalmente o dano
+ * @author braga
+ *
+ */
 public class Knight extends Classe{
 
 	public Knight() {

@@ -2,6 +2,12 @@ package Classe;
 import Itens.LeatherArmor;
 import Itens.ShortSword;
 
+/**
+ * class Rogue: fragil mas rápida no ataque
+ * A habilidade secreta dela é Stealth
+ * @author braga
+ *
+ */
 public class Rogue extends Classe{
 
 	public Rogue() {
