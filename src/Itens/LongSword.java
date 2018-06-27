@@ -1,5 +1,7 @@
 package Itens;
 
+import Lucky.Dices;
+
 /**
  * class LongSword: Arma com dano moderado
  * Arma inicial do Knight
@@ -7,9 +9,12 @@ package Itens;
  *
  */
 public class LongSword extends Weapon{
-	public LongSword() {
-		super("Long Sword", "One of the more popular weapons.", 5, 0, 40);
+	public LongSword(int l, int c) {
+		super("Long Sword", "One of the more popular weapons.", new Dices(1, 10, 0), 0, 40, l, c);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public LongSword() {
+		super("Long Sword", "One of the more popular weapons.", new Dices(1, 10, 0), 0, 40, -1, -1);
+	}
 }

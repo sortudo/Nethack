@@ -1,0 +1,29 @@
+package Itens;
+
+import Lucky.Dices;
+import PlayNet.Player;
+
+public class PotionExtraHealing extends Potions{
+
+	public PotionExtraHealing(int quant, int l, int c) {
+		super("Potion of Extra Healing", "This will heal you a lot.", quant, 20, l, c);
+		// TODO Auto-generated constructor stub
+	}
+
+	public PotionExtraHealing(int quant) {
+		super("Potion of Extra Healing", "This will heal you a lot.", quant, 20, -1, -1);
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void use(Player p, int index) {
+		System.out.println("You drinked " + this.getNome() +"! You feel very healthy.");
+		p.setLife(p.getLife() + new Dices(7,8,0).Roll());
+		if(p.getLife() > p.getMax_life())
+			p.setLife(p.getMax_life());
+		this.setQuant(this.getQuant() -1);
+		if(this.getQuant() == 0)
+			p.dropInventory(index);
+	}
+
+}

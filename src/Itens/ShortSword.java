@@ -1,5 +1,7 @@
 package Itens;
 
+import Lucky.Dices;
+
 /**
  * class ShortSword: Arma com dano pequeno, porém extremamente leve
  * Arma inicial do Rogue
@@ -7,9 +9,12 @@ package Itens;
  *
  */
 public class ShortSword extends Weapon{
-	public ShortSword() {
-		super("Short Sword", "A Popular weapon in the Dungeon of Doom", 3, 0, 30);
+	public ShortSword(int l, int c) {
+		super("Short Sword", "A Popular weapon in the Dungeon of Doom", new Dices(1, 7, 0), 0, 30, l, c);
 		// TODO Auto-generated constructor stub
 	}
 
+	public ShortSword() {
+		super("Short Sword", "A Popular weapon in the Dungeon of Doom", new Dices(1, 7, 0), 0, 30, -1, -1);
+	}
 }

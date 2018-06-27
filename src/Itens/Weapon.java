@@ -1,5 +1,8 @@
 package Itens;
 
+import Lucky.Dices;
+import PlayNet.Player;
+
 /**
  * abstract class Weapon: Representa todas as armas presentes no jogo
  * Damage: É o dano corpo-a-corpo que essa arma da no alvo
@@ -9,14 +12,19 @@ package Itens;
  *
  */
 public abstract class Weapon extends Item{
-	private int Damage;
+	private Dices Damage;
 	private int hitBonus;
-	private int weight;
 	
-	public Weapon(String n, String des, int d, int h, int w) {
-		super(n,des);
+	public Weapon(String n, String des, Dices d, int h, int w, int l, int c) {
+		super(n,des, w,'W', l, c);
 		Damage = d;
 		hitBonus = h;
-		weight = w;
+	}
+	
+	@Override
+	public void use(Player p, int index) {
+		Weapon wea = p.getWield_w();
+		p.setWield_w(this);
+		p.setInventory(index, wea);
 	}
 }

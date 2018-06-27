@@ -1,5 +1,7 @@
 package Itens;
 
+import PlayNet.Player;
+
 /**
  * abstract class Armadura: Representa todas as armaduras presentes no jogo
  * AC: Se você recebe um ataque esse valor indica se você sofre dano ou se recebe dano reduzido
@@ -11,14 +13,20 @@ package Itens;
  */
 public abstract class Armadura extends Item{
 	private int AC;
-	private int weight;
-	public Armadura(String n, String des, int a, int w) {
-		super(n, des);
+	public Armadura(String n, String des, int a, int w, int l, int c) {
+		super(n, des, w,'a', l, c);
 		AC = a;
-		weight = w;
 	}
 	
 	public int getAC() {
 		return AC;
+	}
+	
+	@Override
+	public void use(Player p, int index) {
+		Armadura ar = p.getWield_a();
+		p.setWield_a(this);
+		p.setInventory(index, ar);
+		
 	}
 }

@@ -7,9 +7,12 @@ package Itens;
  *
  */
 public class RingMail extends Armadura{
-	public RingMail() {
-		super("Ring Mail", "Light iron armor", 3, 250);
+	public RingMail(int l, int c) {
+		super("Ring Mail", "Light iron armor", 3, 250, l, c);
 		// TODO Auto-generated constructor stub
 	}
 
+	public RingMail() {
+		super("Ring Mail", "Light iron armor", 3, 250, -1, -1);
+	}
 }

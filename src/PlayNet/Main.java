@@ -1,13 +1,19 @@
 package PlayNet;
 import java.io.IOException;
 
-import Classe.Barbarian;
-import Classe.Knight;
-import Classe.Priest;
-import Classe.Rogue;
+import Itens.Apple;
+import Itens.LongSword;
+import Itens.PotionExtraHealing;
+import Itens.PotionHealing;
+import Lucky.Dices;
 import Race.Elf;
 import Race.Human;
 import Race.Orc;
+import Role.Barbarian;
+import Role.Healer;
+import Role.Knight;
+import Role.Priest;
+import Role.Rogue;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -16,7 +22,9 @@ public class Main {
 		Game g = new Game(8,8);
 		Player p = new Player(4,4);
 		g.put(p);
-		g.put(new Button(2, 3));
+		g.put(new LongSword(2, 3));
+		g.put(new LongSword(2, 4));
+		g.put(new LongSword(2, 5));
 		//g.Draw();
 		System.out.println("Who are You?");
 		p.setName(EntradaTeclado.leString());
@@ -25,6 +33,7 @@ public class Main {
 		System.out.println("2 - Priest");
 		System.out.println("3 - Knight");
 		System.out.println("4 - Rogue");
+		System.out.println("5 - Healer");
 		classe = EntradaTeclado.leInt();
 		while(loop) {
 			if(classe == 1) {
@@ -38,6 +47,13 @@ public class Main {
 				loop = false;
 			}else if (classe == 4) {
 				p.setRole(new Rogue());
+				loop = false;
+			}else if(classe == 5){
+				p.setRole(new Healer());
+				p.setGold(new Dices(1,1000, 1000).Roll());
+				p.addInventory(new Apple(new Dices(1,5,5).Roll()));
+				p.addInventory(new PotionHealing(4));
+				p.addInventory(new PotionExtraHealing(4));
 				loop = false;
 			}else {
 				System.out.println("Number incorrect!");
@@ -95,10 +111,10 @@ public class Main {
 		System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
 		System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
 		while(p.getLife() > 0) {
+			System.out.println("-----------------------------------------------");
 			p.action(g, EntradaTeclado.leString());
 			time++;
-			//clearScreen();
-			System.out.println("-----------------------------------------------");
+			//clearScreen()
 			g.Draw();
 			System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
 			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);

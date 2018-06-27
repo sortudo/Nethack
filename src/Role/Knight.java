@@ -1,4 +1,4 @@
-package Classe;
+package Role;
 import Itens.LongSword;
 import Itens.RingMail;
 
@@ -9,7 +9,7 @@ import Itens.RingMail;
  * @author braga
  *
  */
-public class Knight extends Classe{
+public class Knight extends Role{
 
 	public Knight() {
 		super("Knight", 15, 8, 15, 8, 11, 17, 14, 3, new LongSword(), new RingMail());

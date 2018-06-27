@@ -1,5 +1,7 @@
 package PlayNet;
 
+import Itens.Item;
+
 public class Game {
 	private GameObject[][] tabuleiro;
 	private int lin, col;
@@ -33,13 +35,10 @@ public class Game {
 		this.tabuleiro[obj.getLinha()][obj.getColuna()] = obj;
 	}
 	
-	/*public void put(GameObject obj, int linha, int coluna) {
-		this.tabuleiro[linha][coluna] = obj;
-		obj.setPos(linha, coluna);
-	}*/
-	
 	public void move(int l0, int c0, int l1, int c1) {
-		if(this.tabuleiro[l1][c1] == null) {
+		if(this.tabuleiro[l1][c1] == null || this.tabuleiro[l1][c1] instanceof Item) {
+			if(this.tabuleiro[l1][c1] instanceof Item)
+				this.tabuleiro[l1][c1].onInteract((Player) tabuleiro[l0][c0]);
 			this.tabuleiro[l1][c1] = this.tabuleiro[l0][c0];
 			this.tabuleiro[l0][c0] = null;
 			this.tabuleiro[l1][c1].setPos(l1, c1);

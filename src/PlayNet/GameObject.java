@@ -29,4 +29,9 @@ public abstract class GameObject {
 	}
 	
 	public void onInteract() {}
+
+	public void onInteract(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

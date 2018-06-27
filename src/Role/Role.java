@@ -1,4 +1,4 @@
-package Classe;
+package Role;
 import java.util.ArrayList;
 
 import Itens.Armadura;
@@ -9,7 +9,7 @@ import Itens.Weapon;
  * @author braga
  *
  */
-public abstract class Classe {
+public abstract class Role {
 	private String name;
 	private int Str;
 	private int Int;
@@ -22,7 +22,7 @@ public abstract class Classe {
 	private Weapon wea;
 	private Armadura arm;
 	
-	public Classe (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, Weapon we, Armadura ar) {
+	public Role (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, Weapon we, Armadura ar) {
 		name = n;
 		Str = s;
 		s_hp = hp;
@@ -32,7 +32,8 @@ public abstract class Classe {
 		setDex(d);
 		setCon(co);
 		setCha(cha);
-		arm = ar;
+		setArm(ar);
+		setWea(we);
 	}
 	
 	public String getName() {
@@ -100,6 +101,22 @@ public abstract class Classe {
 	}
 	
 	public int getAC() {
-		return arm.getAC();
+		return getArm().getAC();
+	}
+
+	public Weapon getWea() {
+		return wea;
+	}
+
+	public void setWea(Weapon wea) {
+		this.wea = wea;
+	}
+
+	public Armadura getArm() {
+		return arm;
+	}
+
+	public void setArm(Armadura arm) {
+		this.arm = arm;
 	}
 }

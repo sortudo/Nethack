@@ -1,4 +1,4 @@
-package Classe;
+package Role;
 
 import Itens.BattleAxe;
 import Itens.RingMail;
@@ -9,8 +9,9 @@ import Itens.RingMail;
  * @author braga
  *
  */
-public class Barbarian extends Classe{	
+public class Barbarian extends Role{	
 	public Barbarian() {
 		super("Barbarian", 18, 7, 7, 17, 18, 6, 14, 1, new BattleAxe(), new RingMail());
 	}
+	
 }

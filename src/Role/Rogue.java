@@ -1,4 +1,4 @@
-package Classe;
+package Role;
 import Itens.LeatherArmor;
 import Itens.ShortSword;
 
@@ -8,7 +8,7 @@ import Itens.ShortSword;
  * @author braga
  *
  */
-public class Rogue extends Classe{
+public class Rogue extends Role{
 
 	public Rogue() {
 		super("Rogue", 15, 14, 14, 18, 14, 8, 10, 1, new ShortSword(), new LeatherArmor());

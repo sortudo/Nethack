@@ -6,6 +6,7 @@ public class Button extends GameObject {
 		super('o', linhaInicial, colunaInicial);
 	}
 	
+	@Override
 	public void onInteract() {
 		System.out.println("apertou, miserávi");
 	}

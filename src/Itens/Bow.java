@@ -1,5 +1,7 @@
 package Itens;
 
+import Lucky.Dices;
+
 /**
  * class Bow: Arma extremamente fraca se utilizada corpo-a-corpo
  * Tem habilidade de jogar flechas nas 8 direcoes
@@ -8,9 +10,12 @@ package Itens;
  *
  */
 public class Bow extends Weapon{
-	public Bow() {
-		super("Bow", "Always aim in the head", 1, 0, 30);
+	public Bow(int l, int c) {
+		super("Bow", "Always aim in the head", new Dices(1, 2, 0), 0, 30, l, c);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public Bow() {
+		super("Bow", "Always aim in the head", new Dices(1, 2, 0), 0, 30, -1, -1);
+	}
 }
