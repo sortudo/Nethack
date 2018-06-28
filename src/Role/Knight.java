@@ -1,6 +1,7 @@
 package Role;
 import Itens.LongSword;
 import Itens.RingMail;
+import Lucky.Dices;
 
 /**
  * class Knight: A classe mais padrão dos rpgs
@@ -12,7 +13,7 @@ import Itens.RingMail;
 public class Knight extends Role{
 
 	public Knight() {
-		super("Knight", 15, 8, 15, 8, 11, 17, 14, 3, new LongSword(), new RingMail());
+		super("Knight", 15, 8, 15, 8, 11, 17, 14, 3, 10, new Dices(1,8,0), 2, new LongSword(), new RingMail());
 		// TODO Auto-generated constructor stub
 	}
 

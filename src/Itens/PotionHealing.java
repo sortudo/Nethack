@@ -22,6 +22,6 @@ public class PotionHealing extends Potions{
 			p.setLife(p.getMax_life());
 		this.setQuant(this.getQuant() -1);
 		if(this.getQuant() == 0)
-			p.dropInventory(index);
+			p.dropInventory(index-1);
 	}
 }

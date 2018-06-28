@@ -36,14 +36,16 @@ public class Game {
 	}
 	
 	public void move(int l0, int c0, int l1, int c1) {
-		if(this.tabuleiro[l1][c1] == null || this.tabuleiro[l1][c1] instanceof Item) {
-			if(this.tabuleiro[l1][c1] instanceof Item)
-				this.tabuleiro[l1][c1].onInteract((Player) tabuleiro[l0][c0]);
-			this.tabuleiro[l1][c1] = this.tabuleiro[l0][c0];
-			this.tabuleiro[l0][c0] = null;
-			this.tabuleiro[l1][c1].setPos(l1, c1);
-		} else {
-			this.tabuleiro[l1][c1].onInteract();
+		if(!((Player)this.tabuleiro[l0][c0]).getState_cap().equals(new String("Overloaded"))) {
+			if((this.tabuleiro[l1][c1] == null || this.tabuleiro[l1][c1] instanceof Item)) {
+				if(this.tabuleiro[l1][c1] instanceof Item)
+					this.tabuleiro[l1][c1].onInteract((Player) tabuleiro[l0][c0]);
+				this.tabuleiro[l1][c1] = this.tabuleiro[l0][c0];
+				this.tabuleiro[l0][c0] = null;
+				this.tabuleiro[l1][c1].setPos(l1, c1);
+			} else {
+				this.tabuleiro[l1][c1].onInteract();
+			}
 		}
 	}
 }

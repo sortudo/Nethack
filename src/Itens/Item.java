@@ -17,7 +17,7 @@ public abstract class Item extends GameObject{
 		super(r, l, c);
 		setNome(n);
 		setDescricao(des);
-		weight = w;
+		setWeight(w);
 	}
 	
 	@Override
@@ -48,5 +48,13 @@ public abstract class Item extends GameObject{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 }

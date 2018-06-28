@@ -1,5 +1,7 @@
 package Race;
 
+import Lucky.Dices;
+
 public abstract class Race {
 	private String name;
 	private int mStr;
@@ -10,8 +12,10 @@ public abstract class Race {
 	private int mCha;
 	private int s_hp;
 	private int s_pw;
+	private Dices l_l;
+	private int h_l;
 	
-	public Race(String n, int s, int i, int w, int d, int co, int ch, int hp, int pw) {
+	public Race(String n, int s, int i, int w, int d, int co, int ch, int hp, int pw, Dices l, int h) {
 		name = n;
 		mStr = s;
 		mInt = i;
@@ -19,6 +23,8 @@ public abstract class Race {
 		mDex = d;
 		mCon = co;
 		mCha = ch;
+		setL_l(l);
+		setH_l(h);
 		setS_hp(hp);
 		setS_pw(pw);
 	}
@@ -41,5 +47,21 @@ public abstract class Race {
 
 	public void setS_pw(int s_pw) {
 		this.s_pw = s_pw;
+	}
+
+	public Dices getL_l() {
+		return l_l;
+	}
+
+	public void setL_l(Dices l_l) {
+		this.l_l = l_l;
+	}
+
+	public int getH_l() {
+		return h_l;
+	}
+
+	public void setH_l(int h_l) {
+		this.h_l = h_l;
 	}
 }

@@ -2,11 +2,14 @@ package PlayNet;
 import java.io.IOException;
 
 import Itens.Apple;
+import Itens.FoodRation;
 import Itens.LongSword;
 import Itens.PotionExtraHealing;
 import Itens.PotionHealing;
 import Lucky.Dices;
+import Race.Dwarf;
 import Race.Elf;
+import Race.Gnome;
 import Race.Human;
 import Race.Orc;
 import Role.Barbarian;
@@ -22,7 +25,7 @@ public class Main {
 		Game g = new Game(8,8);
 		Player p = new Player(4,4);
 		g.put(p);
-		g.put(new LongSword(2, 3));
+		g.put(new Apple(1000, 2, 3));
 		g.put(new LongSword(2, 4));
 		g.put(new LongSword(2, 5));
 		//g.Draw();
@@ -38,12 +41,15 @@ public class Main {
 		while(loop) {
 			if(classe == 1) {
 				p.setRole(new Barbarian());
+				p.addInventory(new FoodRation());
+				p.addInventory(new FoodRation());
 				loop = false;
 			}else if (classe == 2) {
 				p.setRole(new Priest());
 				loop = false;
 			}else if (classe == 3) {
 				p.setRole(new Knight());
+				p.addInventory(new Apple(new Dices(1,11,9).Roll()));
 				loop = false;
 			}else if (classe == 4) {
 				p.setRole(new Rogue());
@@ -66,6 +72,8 @@ public class Main {
 		System.out.println("1 - Human");
 		System.out.println("2 - Elf");
 		System.out.println("3 - Orc");
+		System.out.println("4 - Dwarf");
+		System.out.println("5 - Gnome");
 		classe = EntradaTeclado.leInt();
 		while(loop) {
 			if(classe == 1) {
@@ -76,6 +84,12 @@ public class Main {
 				loop = false;
 			}else if (classe == 3) {
 				p.setRace(new Orc());
+				loop = false;
+			}else if (classe == 4) {
+				p.setRace(new Dwarf());
+				loop = false;
+			}else if (classe == 5) {
+				p.setRace(new Gnome());
 				loop = false;
 			}else {
 				System.out.println("Number incorrect!");
@@ -106,7 +120,8 @@ public class Main {
 				classe = EntradaTeclado.leInt();
 			}
 		}
-		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + p.getRace() + " " + p.getClasse() + ".");
+		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + p.getRacename() + " " + p.getClasse() + ".");
+		p.Alive();
 		g.Draw();
 		System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
 		System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
@@ -115,9 +130,10 @@ public class Main {
 			p.action(g, EntradaTeclado.leString());
 			time++;
 			//clearScreen()
+			p.Alive();
 			g.Draw();
-			System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
-			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
+			System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh() + " " + p.getState_cap());
+			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time + " " + p.getNu_state());
 		}
 	}
 }

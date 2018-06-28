@@ -1,0 +1,13 @@
+package Itens;
+
+public class FoodRation extends Food{
+
+	public FoodRation(int l, int c) {
+		super("Food Ration", "A complete meal for your stomach.", 1, 800, 20, l, c);
+		// TODO Auto-generated constructor stub
+	}
+
+	public FoodRation() {
+		super("Food Ration", "A complete meal for your stomach.", 1, 800, 20, -1, -1);
+	}
+}

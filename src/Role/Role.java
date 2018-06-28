@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import Itens.Armadura;
 import Itens.Weapon;
+import Lucky.Dices;
 
 /**
  * abstract classe Classe: Representa todas as roles que o player pode ser
@@ -21,11 +22,17 @@ public abstract class Role {
 	private int s_pw;
 	private Weapon wea;
 	private Armadura arm;
+	private int h_level;
+	private Dices low;
+	private int high;
 	
-	public Role (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, Weapon we, Armadura ar) {
+	public Role (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, int h_l, Dices lo, int hig, Weapon we, Armadura ar) {
 		name = n;
 		Str = s;
 		s_hp = hp;
+		setH_level(h_l);
+		setLow(lo);
+		setHigh(hig);
 		setS_pw(pw);
 		setInt(i);
 		setWis(w);
@@ -118,5 +125,29 @@ public abstract class Role {
 
 	public void setArm(Armadura arm) {
 		this.arm = arm;
+	}
+
+	public int getH_level() {
+		return h_level;
+	}
+
+	public void setH_level(int h_level) {
+		this.h_level = h_level;
+	}
+
+	public Dices getLow() {
+		return low;
+	}
+
+	public void setLow(Dices low) {
+		this.low = low;
+	}
+
+	public int getHigh() {
+		return high;
+	}
+
+	public void setHigh(int high) {
+		this.high = high;
 	}
 }
