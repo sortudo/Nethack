@@ -22,12 +22,12 @@ public abstract class Race {
 	
 	public Race(String n, int s, int i, int w, int d, int co, int ch, int hp, int pw, Dices l, int h) {
 		name = n;
-		mStr = s;
-		mInt = i;
-		mWis = w;
-		mDex = d;
-		mCon = co;
-		mCha = ch;
+		setmStr(s);
+		setmInt(i);
+		setmWis(w);
+		setmDex(d);
+		setmCon(co);
+		setmCha(ch);
 		setL_l(l);
 		setH_l(h);
 		setS_hp(hp);
@@ -68,5 +68,53 @@ public abstract class Race {
 
 	public void setH_l(int h_l) {
 		this.h_l = h_l;
+	}
+
+	public int getmStr() {
+		return mStr;
+	}
+
+	public void setmStr(int mStr) {
+		this.mStr = mStr;
+	}
+
+	public int getmInt() {
+		return mInt;
+	}
+
+	public void setmInt(int mInt) {
+		this.mInt = mInt;
+	}
+
+	public int getmWis() {
+		return mWis;
+	}
+
+	public void setmWis(int mWis) {
+		this.mWis = mWis;
+	}
+
+	public int getmDex() {
+		return mDex;
+	}
+
+	public void setmDex(int mDex) {
+		this.mDex = mDex;
+	}
+
+	public int getmCon() {
+		return mCon;
+	}
+
+	public void setmCon(int mCon) {
+		this.mCon = mCon;
+	}
+
+	public int getmCha() {
+		return mCha;
+	}
+
+	public void setmCha(int mCha) {
+		this.mCha = mCha;
 	}
 }

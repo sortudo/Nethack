@@ -30,6 +30,7 @@ public class PotionExtraHealing extends Potions{
 		p.setAtual_cap(p.getAtual_cap() - this.getWeight());
 		if(this.getQuant() == 0)
 			p.dropInventory(index-1);
+		p.setExe_Str(p.getExe_Str()+1);
 	}
 
 }

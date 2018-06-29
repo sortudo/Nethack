@@ -50,6 +50,10 @@ public abstract class Role {
 	public int getStr() {
 		return Str;
 	}
+	
+	public void setStr(int s) {
+		Str = s;
+	}
 
 	public int getInt() {
 		return Int;

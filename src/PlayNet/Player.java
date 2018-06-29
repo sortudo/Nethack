@@ -42,6 +42,13 @@ public class Player extends GameObject {
 	private int max_cap;
 	private int atual_cap;
 	private int count_cap = 0;
+	private int to_hitStr = 0;
+	private int damageStr = 0;
+	private int exe_Str = 0;
+	private int exe_Dex = 0;
+	private int exe_Cos = 0;
+	private int exe_Wis = 0;
+	private int cap_Str = 0;
 	private String state_cap = "";
 	private String nu_state = "";
 	private Weapon wield_w;
@@ -197,6 +204,8 @@ public class Player extends GameObject {
 	}
 	
 	public int getSt() {
+		if(nu_state.equals(new String("Fainting")))
+			return role.getStr() - 2;
 		return role.getStr();
 	}
 	public int getDx() {
@@ -424,9 +433,10 @@ public class Player extends GameObject {
 			setNu_state("Not Hungry");
 		else if(getNutrition() >= 50 && getNutrition() < 150)
 			setNu_state("Hungry");
-		else if(getNutrition() > 0 && getNutrition() < 50)
+		else if(getNutrition() > 0 && getNutrition() < 50) {
 			setNu_state("Fainting");
-		else if(getNutrition() == 0)
+			System.out.println("You feel weak!");
+		}else if(getNutrition() == 0)
 			life = 0;
 	}
 
@@ -493,5 +503,99 @@ public class Player extends GameObject {
 
 	public void setAtual_cap(int atual_cap) {
 		this.atual_cap = atual_cap;
+	}
+
+	public int getTo_hitStr() {
+		return to_hitStr;
+	}
+
+	public void setTo_hitStr(int to_hitStr) {
+		this.to_hitStr = to_hitStr;
+	}
+
+	public int getDamageStr() {
+		return damageStr;
+	}
+
+	public void setDamageStr(int damageStr) {
+		this.damageStr = damageStr;
+	}
+	
+	/**
+	 * Funcao que calcula a influencia da forca na vida do jogador
+	 */
+	public void Strength() {
+		if(role.getStr() >= 3 && role.getStr() <6) {
+			to_hitStr = -2;
+			damageStr = -1;
+		}else if (role.getStr() >= 6 && role.getStr() < 8) {
+			to_hitStr = -1;
+			damageStr = 0;
+		}else if (role.getStr() >= 8 && role.getStr() < 16) {
+			to_hitStr = 0;
+			damageStr = 0;
+		}else if (role.getStr() == 16) {
+			to_hitStr = 0;
+			damageStr = 1;
+		}else if (role.getStr() == 17) {
+			to_hitStr = 1;
+			damageStr = 1;
+		}else if (role.getStr() == 18) {
+			to_hitStr = 1;
+			damageStr = 2;
+		}else if (role.getStr() == 19 || role.getStr() == 20) {
+			to_hitStr = 1;
+			damageStr = 3;
+		}else if (role.getStr() == 21 || role.getStr() == 22) {
+			to_hitStr = 2;
+			damageStr = 3;
+		}else if (role.getStr() == 23) {
+			to_hitStr = 2;
+			damageStr = 4;
+		}else if (role.getStr() == 24) {
+			to_hitStr = 2;
+			damageStr = 5;
+		}else if (role.getStr() == 25) {
+			to_hitStr = 3;
+			damageStr = 6;
+		}
+	}
+	
+	/**
+	 * Quando o player realiza atividades ele pode aumentar o status de sua Forca,
+	 * Destreza, Constituicao e Sabedoria
+	 */
+	public void Exercise() {
+		if(getState_cap().equals(new String("Stressed")) || getState_cap().equals(new String("Strained"))) {
+			cap_Str++;
+			if(cap_Str == 10) {
+				setExe_Str(getExe_Str() + 1);
+				cap_Str = 0;
+			}
+		}else
+			cap_Str = 0;
+		
+		
+		if(getExe_Str() == 50) {
+			if(role.getStr() < race.getmStr())
+				role.setStr(role.getStr()+1);
+		}if(exe_Dex == 50) {
+			if(role.getDex() < race.getmDex())
+				role.setDex(role.getDex()+1);
+		}if(exe_Cos == 50) {
+			if(role.getCon() < race.getmCon())
+				role.setCon(role.getCon()+1);
+		}if(exe_Wis == 50) {
+			if(role.getWis() < race.getmWis())
+				role.setWis(role.getWis()+1);	
+		}
+	}
+
+	public int getExe_Str() {
+		return exe_Str;
+	}
+
+	public void setExe_Str(int exe_Str) {
+		this.exe_Str = exe_Str;
 	}
 }
