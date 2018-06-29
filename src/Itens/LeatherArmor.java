@@ -6,7 +6,7 @@ package Itens;
  * @author braga
  *
  */
-public class LeatherArmor extends Armadura{
+public class LeatherArmor extends Armor{
 	public LeatherArmor(int l, int c) {
 		super("Leather Armor", "Leather Armor is a type of body armor", 2, 150, l, c);
 		// TODO Auto-generated constructor stub

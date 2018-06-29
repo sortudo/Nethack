@@ -2,10 +2,21 @@ package PlayNet;
 
 import Itens.Item;
 
+/**
+ * class Game: Representa o jogo em si.
+ * Como funciona o seu tabuleiro e GameObjects dentro dele
+ * @author braga
+ *
+ */
 public class Game {
 	private GameObject[][] tabuleiro;
 	private int lin, col;
 	
+	/**
+	 * Cria uma sala retangular
+	 * @param linha
+	 * @param coluna
+	 */
 	public Game(int linha, int coluna) {
 		this.lin = linha;
 		this.col = coluna;
@@ -20,6 +31,9 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Desenha a sala no terminal
+	 */
 	public void Draw() {
 		for(int i = 0; i < lin; i++) {
 			for(int j = 0; j < col; j++) {
@@ -31,10 +45,22 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Cola um GameObject no jogo
+	 * @param obj
+	 */
 	public void put(GameObject obj) {
 		this.tabuleiro[obj.getLinha()][obj.getColuna()] = obj;
 	}
 	
+	/**
+	 * Movimenta o player de uma posicao para outra
+	 * Nao pode atravessar Walls
+	 * @param l0
+	 * @param c0
+	 * @param l1
+	 * @param c1
+	 */
 	public void move(int l0, int c0, int l1, int c1) {
 		if(!((Player)this.tabuleiro[l0][c0]).getState_cap().equals(new String("Overloaded"))) {
 			if((this.tabuleiro[l1][c1] == null || this.tabuleiro[l1][c1] instanceof Item)) {

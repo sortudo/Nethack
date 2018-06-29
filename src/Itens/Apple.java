@@ -2,6 +2,11 @@ package Itens;
 
 import PlayNet.Player;
 
+/**
+ * class Apple: Comida que tem peso e nutricao baixos
+ * @author braga
+ *
+ */
 public class Apple extends Food{
 
 	public Apple(int q, int l, int c) {

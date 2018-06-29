@@ -2,6 +2,11 @@ package Race;
 
 import Lucky.Dices;
 
+/**
+ * class Gnome: A raca mais forte no quesito magia
+ * @author braga
+ *
+ */
 public class Gnome extends Race{
 
 	public Gnome() {

@@ -2,6 +2,11 @@ package Race;
 
 import Lucky.Dices;
 
+/**
+ * class Race: Representa todas as racas presentes no jogo
+ * @author braga
+ *
+ */
 public abstract class Race {
 	private String name;
 	private int mStr;

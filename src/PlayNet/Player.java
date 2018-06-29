@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.function.*;
 import java.lang.Math;
 
-import Itens.Armadura;
+import Itens.Armor;
 import Itens.Consumables;
 import Itens.Food;
 import Itens.Item;
@@ -15,6 +15,11 @@ import Itens.Weapon;
 import Lucky.Dices;
 import Race.Race;
 import Role.Role;
+/**
+ * class Player: Representa o player do jogo
+ * @author braga
+ *
+ */
 public class Player extends GameObject {
 	private String name;
 	private Role role;
@@ -40,38 +45,48 @@ public class Player extends GameObject {
 	private String state_cap = "";
 	private String nu_state = "";
 	private Weapon wield_w;
-	private Armadura wield_a;
+	private Armor wield_a;
 	private HashMap<String, Consumer<Game>> comandos = new HashMap<>();
 
 	public Player(int lin, int col) {
 		super(REPR, lin, col);
+		// Funcao para o player andar para a esquerda
 		comandos.put("4", g -> {
 			g.move(getLinha(), getColuna(), getLinha(), getColuna()-1);
 		});
+		// Funcao para o player andar para cima
 		comandos.put("8", g -> {
 			g.move(getLinha(), getColuna(), getLinha()-1, getColuna());
 		});
+		// Funcao para o player andar para a direita 
 		comandos.put("6", g -> {
 			g.move(getLinha(), getColuna(), getLinha(), getColuna()+1);
 		});		
+		// Funcao para o player andar para baixo
 		comandos.put("2", g -> {
 			g.move(getLinha(), getColuna(), getLinha()+1, getColuna());
 		});
+		// Funcao para o player andar para Noroeste
 		comandos.put("7", g -> {
 			g.move(getLinha(), getColuna(), getLinha()-1, getColuna()-1);
 		});
+		// Funcao para o player andar para Nordeste
 		comandos.put("9", g -> {
 			g.move(getLinha(), getColuna(), getLinha()-1, getColuna()+1);
 		});
+		// Funcao para o player andar para Sudeste
 		comandos.put("3", g -> {
 			g.move(getLinha(), getColuna(), getLinha()+1, getColuna()+1);
 		});
+		// Funcao para o player andar para o Sudoeste
 		comandos.put("1", g -> {
 			g.move(getLinha(), getColuna(), getLinha()+1, getColuna()-1);
 		});
+		// Funcao para o player usar o inventario
 		comandos.put("5", g -> {
 			int j = 0;
 			int index = 0, ud = 0;
+			// Imprime itens equipados e que estao no inventario
 			System.out.println("\t---- Inventory ----");
 			System.out.println("Equiped:");
 			System.out.println("\t- " + getWield_w().getNome());
@@ -83,6 +98,7 @@ public class Player extends GameObject {
 				System.out.println("");
 			}
 			System.out.println("\t---- End of Inventory ----");
+			// Se o inventario nao estiver vazio eu posso usars, dropar ou me informar sobre os iten
 			if(!Inventory.isEmpty()) {
 				System.out.println("Do you wanna use an item or drop? (other for none, 1 for use, 2 for drop and 3 for info)");
 				try {
@@ -118,6 +134,11 @@ public class Player extends GameObject {
 		return this.life;
 	}
 	
+	/**
+	 * Essa funcao recebe um comando e tenta ver qual funcao deve realizar
+	 * @param g
+	 * @param s
+	 */
 	public void action(Game g, String s) {
 		Consumer<Game> funcao = comandos.get(s);
 		
@@ -235,7 +256,7 @@ public class Player extends GameObject {
 	}
 	
 	public int getAC() {
-		return role.getAC();
+		return wield_a.getAC();
 	}
 
 	public int getXp() {
@@ -246,12 +267,16 @@ public class Player extends GameObject {
 		this.xp = xp;
 	}
 	
+	/**
+	 * Funcao que adiciona um item no inventario do player
+	 * @param i
+	 */
 	public void addInventory(Item i) {
 		Inventory.add(i);
 		if(!(i instanceof Consumables))
-			atual_cap += i.getWeight();
+			setAtual_cap(getAtual_cap() + i.getWeight());
 		else
-			atual_cap += ((Consumables) i).getWeight() * ((Consumables) i).getQuant();
+			setAtual_cap(getAtual_cap() + ((Consumables) i).getWeight() * ((Consumables) i).getQuant());
 	}
 
 	public Weapon getWield_w() {
@@ -260,31 +285,39 @@ public class Player extends GameObject {
 
 	public void setWield_w(Weapon wield_w) {
 		this.wield_w = wield_w;
-		atual_cap += wield_w.getWeight();
+		setAtual_cap(getAtual_cap() + wield_w.getWeight());
 	}
 
-	public Armadura getWield_a() {
+	public Armor getWield_a() {
 		return wield_a;
 	}
 
-	public void setWield_a(Armadura wield_a) {
+	public void setWield_a(Armor wield_a) {
 		this.wield_a = wield_a;
-		atual_cap += wield_a.getWeight();
+		setAtual_cap(getAtual_cap() + wield_a.getWeight());
 	}
 	
 	public void setInventory(int index, Item i) {
 		Inventory.set(index, i);
 	}
 	
+	/**
+	 * Funcao que dropa um item do inventario
+	 * @param index
+	 */
 	public void dropInventory(int index) {
 		if(!(Inventory.get(index) instanceof Consumables)) {
-			atual_cap -= Inventory.get(index).getWeight();
+			setAtual_cap(getAtual_cap() - Inventory.get(index).getWeight());
 		}else { 
-			atual_cap -= ((Consumables)Inventory.get(index)).getWeight() * ((Consumables)Inventory.get(index)).getQuant();
+			setAtual_cap(getAtual_cap() - ((Consumables)Inventory.get(index)).getWeight() * ((Consumables)Inventory.get(index)).getQuant());
 		}
 		Inventory.remove(index);
 	}
 	
+	/**
+	 * Funcao responsavel pelo sistema de level do personagem
+	 * para upar para o proximo level, e cuidar dos status que aumentam por causa disso
+	 */
 	public void levelUp() {
 		boolean levelupped = false;
 		if(level < 10) {
@@ -323,9 +356,12 @@ public class Player extends GameObject {
 				levelupped = true;
 			}
 		if(levelupped) {
+			System.out.println("You feel more powerful now!");
 			if(this.level < role.getH_level()) {
-				this.setLife(life + role.getLow().Roll() + race.getL_l().Roll());
-				this.setMax_life(max_life + role.getLow().Roll() + race.getL_l().Roll());
+				int lowRoleDice = role.getLow().Roll();
+				int lowRaceDice = race.getL_l().Roll();
+				this.setLife(life + lowRoleDice + lowRaceDice);
+				this.setMax_life(max_life + lowRoleDice + lowRaceDice);
 			}else {
 				this.setLife(life + role.getHigh() + race.getH_l());
 				this.setMax_life(max_life + role.getHigh() + race.getH_l());
@@ -350,6 +386,9 @@ public class Player extends GameObject {
 		this.reg_count = reg_count;
 	}
 	
+	/**
+	 * Funcao que cuida do sistema de Regeneracao de vida e energia do player
+	 */
 	public void Regeneration() {
 		reg_count++;
 		pw_count++;
@@ -357,7 +396,6 @@ public class Player extends GameObject {
 			reg_count = 0;
 			pw_count = 0;
 		}
-		System.out.println("Reg_count: " + reg_count);
 		if(reg_count == reg_turn) {
 			reg_count = 0;
 			life += regeneration;
@@ -373,6 +411,9 @@ public class Player extends GameObject {
 		}
 	}
 	
+	/**
+	 * Funcao que cuida do sistema de Alimentacao do player
+	 */
 	public void Nutrition() {
 		setNutrition(getNutrition() - 1);
 		if(getState_cap().equals(new String("Stressed")) || getState_cap().equals(new String("Strained")) || getState_cap().equals(new String("Overloaded")))
@@ -405,17 +446,18 @@ public class Player extends GameObject {
 		this.nu_state = nu_state;
 	}
 	
+	/**
+	 * Funcao que cuida do Sistema de cansaco baseado nos itens que o player carrega
+	 */
 	public void Capacity() {
 		max_cap = (25*(this.getSt() + this.getCo()) + 25);
-		System.out.println("Max: " + max_cap);
-		System.out.println("Atual: " + atual_cap);
-		if(atual_cap < (1.5*max_cap))
+		if(getAtual_cap() < (1.5*max_cap))
 			setState_cap("Unencumbered");
-		else if (atual_cap >= 1.5*max_cap && atual_cap < 2*max_cap)
+		else if (getAtual_cap() >= 1.5*max_cap && getAtual_cap() < 2*max_cap)
 			setState_cap("Stressed");
-		else if(atual_cap >= 2*max_cap && atual_cap < 3*max_cap)
+		else if(getAtual_cap() >= 2*max_cap && getAtual_cap() < 3*max_cap)
 			setState_cap("Strained");
-		else if(atual_cap > 3*max_cap)
+		else if(getAtual_cap() > 3*max_cap)
 			setState_cap("Overloaded");
 		
 		if(getState_cap().equals(new String("Strained")) || getState_cap().equals(new String("Overloaded"))) {
@@ -435,10 +477,21 @@ public class Player extends GameObject {
 		this.state_cap = state_cap;
 	}
 	
+	/**
+	 * Essa funcao contem todas as funcoes que precisam ser utilizadas todo os turnos em que o player estiver vivo
+	 */
 	public void Alive() {
 		Nutrition();
 		levelUp();
 		Capacity();
 		Regeneration();
+	}
+
+	public int getAtual_cap() {
+		return atual_cap;
+	}
+
+	public void setAtual_cap(int atual_cap) {
+		this.atual_cap = atual_cap;
 	}
 }

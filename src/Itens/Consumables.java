@@ -1,5 +1,11 @@
 package Itens;
 
+/**
+ * class Consumables: Representa todos aqueles itens
+ * que possuem stacks e pode ser usados ate acabarem os stacks
+ * @author braga
+ *
+ */
 public class Consumables extends Item{
 	private int quant;
 	

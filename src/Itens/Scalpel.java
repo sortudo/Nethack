@@ -2,6 +2,11 @@ package Itens;
 
 import Lucky.Dices;
 
+/**
+ * class Scalpel: Arma muito leve que consegue dar pouco dano
+ * @author braga
+ *
+ */
 public class Scalpel extends Weapon{
 
 	public Scalpel(int l, int c) {

@@ -3,6 +3,11 @@ package Itens;
 import Lucky.Dices;
 import PlayNet.Player;
 
+/**
+ * class PotionExtraHealing: Potion que ao ser usado restaura muitos pontos de vida do player
+ * @author braga
+ *
+ */
 public class PotionExtraHealing extends Potions{
 
 	public PotionExtraHealing(int quant, int l, int c) {
@@ -22,6 +27,7 @@ public class PotionExtraHealing extends Potions{
 		if(p.getLife() > p.getMax_life())
 			p.setLife(p.getMax_life());
 		this.setQuant(this.getQuant() -1);
+		p.setAtual_cap(p.getAtual_cap() - this.getWeight());
 		if(this.getQuant() == 0)
 			p.dropInventory(index-1);
 	}

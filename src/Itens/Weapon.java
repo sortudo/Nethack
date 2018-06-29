@@ -21,10 +21,15 @@ public abstract class Weapon extends Item{
 		hitBonus = h;
 	}
 	
+	/**
+	 * Quando usada no inventario, a arma escolhida eh equipada
+	 * e a que estava equipada vai para o inventario
+	 */
 	@Override
 	public void use(Player p, int index) {
+		System.out.println("Wield Weapon now is: " + this.getNome());
 		Weapon wea = p.getWield_w();
 		p.setWield_w(this);
-		p.setInventory(index, wea);
+		p.setInventory(index-1, wea);
 	}
 }

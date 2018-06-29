@@ -1,7 +1,7 @@
 package Itens;
 
 
-public class Robe extends Armadura{
+public class Robe extends Armor{
 
 	public Robe(int l, int c) {
 		super("Robe", "A robe is a special kind of cloak", 2, 15, l, c);

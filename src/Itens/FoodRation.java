@@ -1,5 +1,11 @@
 package Itens;
 
+/**
+ * class FoodRation: O melhor tipo de comida
+ * Consegue manter o seu personagem satisfeito por um bom tempo
+ * @author braga
+ *
+ */
 public class FoodRation extends Food{
 
 	public FoodRation(int l, int c) {

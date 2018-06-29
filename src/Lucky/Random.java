@@ -1,7 +1,7 @@
 package Lucky;
 import java.util.Calendar;
 
-/** Classe que gera números aleatórios com semente padrão, gerada pela data ou adicionada pelo usuário
+/** Classe que gera numeros aleatorios com semente padrao, gerada pela data ou adicionada pelo usuario
  * 
  * @author hermeto
  * @author eleazar

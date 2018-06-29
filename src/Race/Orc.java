@@ -2,6 +2,11 @@ package Race;
 
 import Lucky.Dices;
 
+/**
+ * class Orc: Tem bastante forca fisica
+ * @author braga
+ *
+ */
 public class Orc extends Race{
 
 	public Orc() {

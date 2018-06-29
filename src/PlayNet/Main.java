@@ -3,9 +3,11 @@ import java.io.IOException;
 
 import Itens.Apple;
 import Itens.FoodRation;
+import Itens.Gold;
 import Itens.LongSword;
 import Itens.PotionExtraHealing;
 import Itens.PotionHealing;
+import Itens.RingMail;
 import Lucky.Dices;
 import Race.Dwarf;
 import Race.Elf;
@@ -18,6 +20,11 @@ import Role.Knight;
 import Role.Priest;
 import Role.Rogue;
 
+/**
+ * class Main: Aqui eh onde o jogo eh colocado em pratica
+ * @author braga
+ *
+ */
 public class Main {
 	public static void main(String[] args) throws IOException {
 		int classe, time = 0;
@@ -25,13 +32,16 @@ public class Main {
 		Game g = new Game(8,8);
 		Player p = new Player(4,4);
 		g.put(p);
-		g.put(new Apple(1000, 2, 3));
+		g.put(new RingMail(2,3));
 		g.put(new LongSword(2, 4));
 		g.put(new LongSword(2, 5));
-		//g.Draw();
+		/**
+		 * O jogo comeca com o jogador criando o seu personagem
+		 * Escolhendo nome, classe, raça e sexo
+		 */
 		System.out.println("Who are You?");
 		p.setName(EntradaTeclado.leString());
-		System.out.println("What is your classe?");
+		System.out.println("What is your class?");
 		System.out.println("1 - Barbarian");
 		System.out.println("2 - Priest");
 		System.out.println("3 - Knight");
@@ -120,14 +130,19 @@ public class Main {
 				classe = EntradaTeclado.leInt();
 			}
 		}
+		/**
+		 * Apartir daqui o jogo comeca com o player criado, dentro de uma sala
+		 */
+		// Da boas-vindas ao player
 		System.out.println("Hello " + p.getName() + ", Welcome to NetHack! You are a " + p.getGender() + " " + p.getRacename() + " " + p.getClasse() + ".");
 		p.Alive();
 		g.Draw();
+		// Linha de Status do personagem
 		System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh());
 		System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time);
-		while(p.getLife() > 0) {
+		while(p.getLife() > 0) { // Enquanto o player estiver vivo o jogo continua
 			System.out.println("-----------------------------------------------");
-			p.action(g, EntradaTeclado.leString());
+			p.action(g, EntradaTeclado.leString()); // Ve qual acao o player quer tomar
 			time++;
 			//clearScreen()
 			p.Alive();

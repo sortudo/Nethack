@@ -11,9 +11,9 @@ import PlayNet.Player;
  * @author braga
  *
  */
-public abstract class Armadura extends Item{
+public abstract class Armor extends Item{
 	private int AC;
-	public Armadura(String n, String des, int a, int w, int l, int c) {
+	public Armor(String n, String des, int a, int w, int l, int c) {
 		super(n, des, w,'a', l, c);
 		AC = a;
 	}
@@ -21,12 +21,15 @@ public abstract class Armadura extends Item{
 	public int getAC() {
 		return AC;
 	}
-	
+	/**
+	 * Quando a armadura eh usada no inventario ela eh trocada com a armadura
+	 * que o player esta usando no momento
+	 */
 	@Override
 	public void use(Player p, int index) {
-		Armadura ar = p.getWield_a();
+		System.out.println("Wield Armor now is: " + this.getNome());
+		Armor ar = p.getWield_a();
 		p.setWield_a(this);
-		p.setInventory(index, ar);
-		
+		p.setInventory(index-1, ar);
 	}
 }

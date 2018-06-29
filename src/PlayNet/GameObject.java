@@ -1,5 +1,10 @@
 package PlayNet;
 
+/**
+ * class GameObject: É tudo que tem no tabuleiro do NetHack
+ * @author braga
+ *
+ */
 public abstract class GameObject {
 	private final char representacao;
 	private int linha;

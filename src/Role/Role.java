@@ -1,7 +1,7 @@
 package Role;
 import java.util.ArrayList;
 
-import Itens.Armadura;
+import Itens.Armor;
 import Itens.Weapon;
 import Lucky.Dices;
 
@@ -21,12 +21,12 @@ public abstract class Role {
 	private int s_hp;	// Vida e energia iniciais
 	private int s_pw;
 	private Weapon wea;
-	private Armadura arm;
+	private Armor arm;
 	private int h_level;
 	private Dices low;
 	private int high;
 	
-	public Role (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, int h_l, Dices lo, int hig, Weapon we, Armadura ar) {
+	public Role (String n, int s, int i, int w, int d, int co, int cha, int hp, int pw, int h_l, Dices lo, int hig, Weapon we, Armor ar) {
 		name = n;
 		Str = s;
 		s_hp = hp;
@@ -119,11 +119,11 @@ public abstract class Role {
 		this.wea = wea;
 	}
 
-	public Armadura getArm() {
+	public Armor getArm() {
 		return arm;
 	}
 
-	public void setArm(Armadura arm) {
+	public void setArm(Armor arm) {
 		this.arm = arm;
 	}
 

@@ -1,11 +1,17 @@
 package Role;
 
-import Itens.Armadura;
+import Itens.Armor;
 import Itens.LeatherGloves;
 import Itens.Scalpel;
 import Itens.Weapon;
 import Lucky.Dices;
 
+/**
+ * class Healer: Nao tem muito dano e tambem eh muito fragil
+ * Porem consegue se sustentar por muito tempo
+ * @author braga
+ *
+ */
 public class Healer extends Role{
 
 	public Healer() {

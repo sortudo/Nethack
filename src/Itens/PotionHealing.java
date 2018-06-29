@@ -3,6 +3,11 @@ package Itens;
 import Lucky.Dices;
 import PlayNet.Player;
 
+/**
+ * class PotionHealing: Potion que ao ser usada restaura a vida do player
+ * @author braga
+ *
+ */
 public class PotionHealing extends Potions{
 
 	public PotionHealing(int quant, int l, int c) {
@@ -21,6 +26,7 @@ public class PotionHealing extends Potions{
 		if(p.getLife() > p.getMax_life())
 			p.setLife(p.getMax_life());
 		this.setQuant(this.getQuant() -1);
+		p.setAtual_cap(p.getAtual_cap() - this.getWeight());
 		if(this.getQuant() == 0)
 			p.dropInventory(index-1);
 	}

@@ -2,6 +2,11 @@ package Race;
 
 import Lucky.Dices;
 
+/**
+ * class Elf: Tem bastante força magica
+ * @author braga
+ *
+ */
 public class Elf extends Race{
 
 	public Elf() {

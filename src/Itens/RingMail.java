@@ -6,7 +6,7 @@ package Itens;
  * @author braga
  *
  */
-public class RingMail extends Armadura{
+public class RingMail extends Armor{
 	public RingMail(int l, int c) {
 		super("Ring Mail", "Light iron armor", 3, 250, l, c);
 		// TODO Auto-generated constructor stub

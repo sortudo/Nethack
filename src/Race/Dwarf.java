@@ -2,6 +2,11 @@ package Race;
 
 import Lucky.Dices;
 
+/**
+ * class Dwarf: A raca com maior dano bruto do jogo
+ * @author braga
+ *
+ */
 public class Dwarf extends Race{
 
 	public Dwarf() {

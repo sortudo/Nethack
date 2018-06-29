@@ -20,6 +20,10 @@ public abstract class Item extends GameObject{
 		setWeight(w);
 	}
 	
+	/**
+	 * Quando o player anda para a mesma posicao que um item
+	 * ele armazena no inventario, porem tem excessoes
+	 */
 	@Override
 	public void onInteract(Player p) {
 		p.addInventory(this);

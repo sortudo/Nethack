@@ -1,5 +1,12 @@
 package Lucky;
 
+/**
+ * class Dices: Representa os dados rolados durante o jogo
+ * Varios aspectos e valores do jogo sao baseados em numero de dados
+ * como se fosse um RPG de mesa. Essa classe simula um dado na vida real
+ * @author braga
+ *
+ */
 public class Dices {
 	private int n;
 	private int faces;
@@ -12,6 +19,11 @@ public class Dices {
 		modifier = m;
 	}
 	
+	/**
+	 * Roda o dado de acordo com o numero de dados e face
+	 * e depois retorna o resultado
+	 * @return
+	 */
 	public int Roll() {
 		resultado = 0;
 		for(int i = 0; i < n; i++)
@@ -19,6 +31,10 @@ public class Dices {
 		return resultado + modifier;
 	}
 	
+	/**
+	 * Funcao responsavel pela aletoriedade do dado
+	 * @return
+	 */
 	private int rolar() {
 		Random rand = new Random();
 		this.resultado = rand.getIntRand(faces);
