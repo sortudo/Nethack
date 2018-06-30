@@ -9,6 +9,7 @@ import Itens.PotionExtraHealing;
 import Itens.PotionHealing;
 import Itens.RingMail;
 import Lucky.Dices;
+import Monster.Jackal;
 import Race.Dwarf;
 import Race.Elf;
 import Race.Gnome;
@@ -32,9 +33,7 @@ public class Main {
 		Game g = new Game(8,8);
 		Player p = new Player(4,4);
 		g.put(p);
-		g.put(new RingMail(2,3));
-		g.put(new LongSword(2, 4));
-		g.put(new LongSword(2, 5));
+		g.put(new Jackal(2,3));
 		/**
 		 * O jogo comeca com o jogador criando o seu personagem
 		 * Escolhendo nome, classe, raça e sexo

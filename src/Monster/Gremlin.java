@@ -5,7 +5,7 @@ import Lucky.Dices;
 public class Gremlin extends Monster {
 
 	public Gremlin(int l, int c) {
-		super(new Dices(1,6,0), 5, 2, l, c);
+		super("Gremlin", new Dices(1,6,0), 5, 2, l, c);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -43,12 +43,15 @@ public class Player extends GameObject {
 	private int atual_cap;
 	private int count_cap = 0;
 	private int to_hitStr = 0;
+	private int to_hitDex = 0;
 	private int damageStr = 0;
 	private int exe_Str = 0;
 	private int exe_Dex = 0;
 	private int exe_Cos = 0;
 	private int exe_Wis = 0;
 	private int cap_Str = 0;
+	private int cap_Cons = 0;
+	private int cons_hp = 0;
 	private String state_cap = "";
 	private String nu_state = "";
 	private Weapon wield_w;
@@ -225,11 +228,11 @@ public class Player extends GameObject {
 	}
 
 	public int getNivel() {
-		return level;
+		return getLevel();
 	}
 
 	public void setNivel(int nivel) {
-		level = nivel;
+		setLevel(nivel);
 	}
 
 	public int getGold() {
@@ -329,44 +332,44 @@ public class Player extends GameObject {
 	 */
 	public void levelUp() {
 		boolean levelupped = false;
-		if(level < 10) {
-			if(xp >= Math.pow(2, level+1)*10) {
-				level++;
+		if(getLevel() < 10) {
+			if(xp >= Math.pow(2, getLevel()+1)*10) {
+				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
-			if(level == 1)
+			if(getLevel() == 1)
 				reg_turn = 15;
-			else if(level == 2)
+			else if(getLevel() == 2)
 				reg_turn = 11;
-			else if(level == 3)
+			else if(getLevel() == 3)
 				reg_turn = 9;
-			else if(level == 4)
+			else if(getLevel() == 4)
 				reg_turn = 8;
-			else if(level == 5)
+			else if(getLevel() == 5)
 				reg_turn = 7;
-			else if(level == 6)
+			else if(getLevel() == 6)
 				reg_turn = 6;
-			else if(level == 7)
+			else if(getLevel() == 7)
 				reg_turn = 5;
-			else if(level == 8)
+			else if(getLevel() == 8)
 				reg_turn = 5;
-			else if(level == 9)
+			else if(getLevel() == 9)
 				reg_turn = 4;
-			else if(level == 10)
+			else if(getLevel() == 10)
 				reg_turn = 3;
-		}else if (level >= 10 && level < 20)
-			if(xp >= Math.pow(2, level-9)*10000) {
-				level++;
+		}else if (getLevel() >= 10 && getLevel() < 20)
+			if(xp >= Math.pow(2, getLevel()-9)*10000) {
+				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
-		else if(level >= 20)
-			if(xp >= (level-19)*10000000) {
-				level++;
+		else if(getLevel() >= 20)
+			if(xp >= (getLevel()-19)*10000000) {
+				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
 		if(levelupped) {
 			System.out.println("You feel more powerful now!");
-			if(this.level < role.getH_level()) {
+			if(this.getLevel() < role.getH_level()) {
 				int lowRoleDice = role.getLow().Roll();
 				int lowRaceDice = race.getL_l().Roll();
 				this.setLife(life + lowRoleDice + lowRaceDice);
@@ -375,10 +378,12 @@ public class Player extends GameObject {
 				this.setLife(life + role.getHigh() + race.getH_l());
 				this.setMax_life(max_life + role.getHigh() + race.getH_l());
 			}
+			this.setLife(life + cons_hp);
+			this.setMax_life(max_life + cons_hp);
 			power += ((role.getWis()/2)+1);
 			max_power += ((role.getWis()/2)+1);
 		}
-		if(level > 10)
+		if(getLevel() > 10)
 			if(role.getCon() > 12)
 				regeneration = new Dices(1,role.getCon(),0).Roll();
 	}
@@ -412,7 +417,7 @@ public class Player extends GameObject {
 				life = max_life;
 			}
 		}
-		if(pw_count > (38 - level)*(2/3)) {
+		if(pw_count > (38 - getLevel())*(2/3)) {
 			pw_count = 0;
 			power += new Dices(1,((role.getWis() + role.getInt())/15)+1,0).Roll();
 			if(power > max_power)
@@ -495,6 +500,10 @@ public class Player extends GameObject {
 		levelUp();
 		Capacity();
 		Regeneration();
+		Strength();
+		Dexterity();
+		Constitution();
+		Exercise();
 	}
 
 	public int getAtual_cap() {
@@ -524,7 +533,7 @@ public class Player extends GameObject {
 	/**
 	 * Funcao que calcula a influencia da forca na vida do jogador
 	 */
-	public void Strength() {
+	public void Strength() { // Testar
 		if(role.getStr() >= 3 && role.getStr() <6) {
 			to_hitStr = -2;
 			damageStr = -1;
@@ -562,10 +571,63 @@ public class Player extends GameObject {
 	}
 	
 	/**
+	 * Funcao que calcula a influencia da forca na vida do jogador
+	 */
+	public void Dexterity() { // Testar
+		if(role.getDex() == 3)
+			to_hitDex = -3;
+		else if(role.getDex() == 4 || role.getDex() == 5)
+			to_hitDex = -2;
+		else if(role.getDex() == 6 || role.getDex() == 7)
+			to_hitDex = -1;
+		else if(role.getDex() >= 8 && role.getDex() <=14)
+			to_hitDex = 0;
+		else if(role.getDex() == 15)
+			to_hitDex = 1;
+		else if(role.getDex() == 16)
+			to_hitDex = 2;
+		else if(role.getDex() == 17)
+			to_hitDex = 3;
+		else if(role.getDex() == 18)
+			to_hitDex = 4;
+		else if(role.getDex() == 19)
+			to_hitDex = 5;
+		else if(role.getDex() == 20)
+			to_hitDex = 6;
+		else if(role.getDex() == 21)
+			to_hitDex = 7;
+		else if(role.getDex() == 22)
+			to_hitDex = 8;
+		else if(role.getDex() == 23)
+			to_hitDex = 9;
+		else if(role.getDex() == 24)
+			to_hitDex = 10;
+		else if(role.getDex() == 25)
+			to_hitDex = 11;
+	}
+	
+	public void Constitution() { // Testar
+		if(role.getCon() == 3)
+			cons_hp = -2;
+		else if(role.getCon() >= 4 && role.getCon() <= 6)
+			cons_hp = -1;
+		else if(role.getCon() >= 7 && role.getCon() <= 14)
+			cons_hp = 0;
+		else if(role.getCon() >= 15 && role.getCon() <= 16)
+			cons_hp = 1;
+		else if(role.getCon() == 17)
+			cons_hp = 2;
+		else if(role.getCon() == 18)
+			cons_hp = 3;
+		else
+			cons_hp = 4;
+	}
+	
+	/**
 	 * Quando o player realiza atividades ele pode aumentar o status de sua Forca,
 	 * Destreza, Constituicao e Sabedoria
 	 */
-	public void Exercise() {
+	public void Exercise() { // Testar
 		if(getState_cap().equals(new String("Stressed")) || getState_cap().equals(new String("Strained"))) {
 			cap_Str++;
 			if(cap_Str == 10) {
@@ -575,19 +637,36 @@ public class Player extends GameObject {
 		}else
 			cap_Str = 0;
 		
+		if(getNu_state().equals(new String("Not Hungry")))
+			cap_Cons++;
+		else
+			cap_Cons = 0;
+		if(cap_Cons == 10) {
+			cap_Cons = 0;
+			setExe_Cos(getExe_Cos() + 1);
+		}
 		
-		if(getExe_Str() == 50) {
-			if(role.getStr() < race.getmStr())
+		if(getExe_Str() == 100) {
+			if(role.getStr() < race.getmStr()) {
 				role.setStr(role.getStr()+1);
-		}if(exe_Dex == 50) {
-			if(role.getDex() < race.getmDex())
+				System.out.println("You feel strong!");
+			}
+		}if(getExe_Dex() == 50) {
+			if(role.getDex() < race.getmDex()) {
 				role.setDex(role.getDex()+1);
-		}if(exe_Cos == 50) {
-			if(role.getCon() < race.getmCon())
+				System.out.println("You feel agile! You must have been working on your reflexes.");
+			}
+		}if(getExe_Cos() == 50) {
+			if(role.getCon() < race.getmCon()) {
 				role.setCon(role.getCon()+1);
+				System.out.println("You feel tough! You must be leading a healthy life-style.");
+			}
 		}if(exe_Wis == 50) {
-			if(role.getWis() < race.getmWis())
-				role.setWis(role.getWis()+1);	
+			if(role.getWis() < race.getmWis()) {
+				role.setWis(role.getWis()+1);
+				System.out.println("You feel wise!  You must have been very observant.");
+				// Se conseguir lançar uma magia Exercita o Wis
+			}
 		}
 	}
 
@@ -597,5 +676,45 @@ public class Player extends GameObject {
 
 	public void setExe_Str(int exe_Str) {
 		this.exe_Str = exe_Str;
+	}
+
+	public int getTo_hitDex() {
+		return to_hitDex;
+	}
+
+	public void setTo_hitDex(int to_hitDex) {
+		this.to_hitDex = to_hitDex;
+	}
+
+	public int getExe_Dex() {
+		return exe_Dex;
+	}
+
+	public void setExe_Dex(int exe_Dex) {
+		this.exe_Dex = exe_Dex;
+	}
+
+	public int getCons_hp() {
+		return cons_hp;
+	}
+
+	public void setCons_hp(int cons_hp) {
+		this.cons_hp = cons_hp;
+	}
+
+	public int getExe_Cos() {
+		return exe_Cos;
+	}
+
+	public void setExe_Cos(int exe_Cos) {
+		this.exe_Cos = exe_Cos;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

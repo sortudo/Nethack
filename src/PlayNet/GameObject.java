@@ -36,7 +36,10 @@ public abstract class GameObject {
 	public void onInteract() {}
 
 	public void onInteract(Player p) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+	}
+	
+	public void onInteract(Player p, Game g) {
+		// TODO Auto-generated method stub	
 	}
 }

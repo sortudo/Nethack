@@ -53,6 +53,10 @@ public class Game {
 		this.tabuleiro[obj.getLinha()][obj.getColuna()] = obj;
 	}
 	
+	public void remove(GameObject obj) {
+		this.tabuleiro[obj.getLinha()][obj.getColuna()] = null;
+	}
+	
 	/**
 	 * Movimenta o player de uma posicao para outra
 	 * Nao pode atravessar Walls
@@ -70,7 +74,7 @@ public class Game {
 				this.tabuleiro[l0][c0] = null;
 				this.tabuleiro[l1][c1].setPos(l1, c1);
 			} else {
-				this.tabuleiro[l1][c1].onInteract();
+				this.tabuleiro[l1][c1].onInteract((Player)this.tabuleiro[l0][c0], this);
 			}
 		}
 	}

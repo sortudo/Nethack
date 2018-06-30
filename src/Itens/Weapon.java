@@ -17,8 +17,8 @@ public abstract class Weapon extends Item{
 	
 	public Weapon(String n, String des, Dices d, int h, int w, int l, int c) {
 		super(n,des, w,'W', l, c);
-		Damage = d;
-		hitBonus = h;
+		setDamage(d);
+		setHitBonus(h);
 	}
 	
 	/**
@@ -31,5 +31,21 @@ public abstract class Weapon extends Item{
 		Weapon wea = p.getWield_w();
 		p.setWield_w(this);
 		p.setInventory(index-1, wea);
+	}
+
+	public int getHitBonus() {
+		return hitBonus;
+	}
+
+	public void setHitBonus(int hitBonus) {
+		this.hitBonus = hitBonus;
+	}
+
+	public Dices getDamage() {
+		return Damage;
+	}
+
+	public void setDamage(Dices damage) {
+		Damage = damage;
 	}
 }
