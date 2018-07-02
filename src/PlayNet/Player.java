@@ -35,7 +35,7 @@ public class Player extends GameObject {
 	private int max_power = 0;
 	private int xp = 0;
 	private int regeneration = 1;
-	private int reg_count = 0;
+	private int reg_count = 0; // Zera quando é atacado
 	private int reg_turn = 15;
 	private int pw_count;
 	private int nutrition = 900;
@@ -49,9 +49,16 @@ public class Player extends GameObject {
 	private int exe_Dex = 0;
 	private int exe_Cos = 0;
 	private int exe_Wis = 0;
+	private int exe_Int = 0;
+	private int exe_Cha = 0;
 	private int cap_Str = 0;
 	private int cap_Cons = 0;
 	private int cons_hp = 0;
+	private int missing_xp = 0;
+	private int visible = 0;
+	private int invi_count = 0;
+	private int throw_range = 0;
+	private int score = 0;
 	private String state_cap = "";
 	private String nu_state = "";
 	private Weapon wield_w;
@@ -337,6 +344,7 @@ public class Player extends GameObject {
 				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
+			missing_xp = (int) ((Math.pow(2, getLevel()+1)*10) - xp); 
 			if(getLevel() == 1)
 				reg_turn = 15;
 			else if(getLevel() == 2)
@@ -357,16 +365,19 @@ public class Player extends GameObject {
 				reg_turn = 4;
 			else if(getLevel() == 10)
 				reg_turn = 3;
-		}else if (getLevel() >= 10 && getLevel() < 20)
+		}else if (getLevel() >= 10 && getLevel() < 20) {
 			if(xp >= Math.pow(2, getLevel()-9)*10000) {
 				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
-		else if(getLevel() >= 20)
+			missing_xp = (int) ((Math.pow(2, getLevel()-9)*10000) - xp);
+		}else if(getLevel() >= 20) {
 			if(xp >= (getLevel()-19)*10000000) {
 				setLevel(getLevel() + 1);
 				levelupped = true;
 			}
+			missing_xp = ((getLevel()-19)*10000000) - xp;
+		}
 		if(levelupped) {
 			System.out.println("You feel more powerful now!");
 			if(this.getLevel() < role.getH_level()) {
@@ -441,7 +452,7 @@ public class Player extends GameObject {
 		else if(getNutrition() > 0 && getNutrition() < 50) {
 			setNu_state("Fainting");
 			System.out.println("You feel weak!");
-		}else if(getNutrition() == 0)
+		}else if(getNutrition() <= 0)
 			life = 0;
 	}
 
@@ -504,6 +515,14 @@ public class Player extends GameObject {
 		Dexterity();
 		Constitution();
 		Exercise();
+		
+		if(visible == 0) {
+			invi_count --;
+			if(invi_count == 0) {
+				visible = 1;
+				System.out.println("You can see yourself again.");
+			}
+		}
 	}
 
 	public int getAtual_cap() {
@@ -533,47 +552,67 @@ public class Player extends GameObject {
 	/**
 	 * Funcao que calcula a influencia da forca na vida do jogador
 	 */
-	public void Strength() { // Testar
+	public void Strength() { 
 		if(role.getStr() >= 3 && role.getStr() <6) {
 			to_hitStr = -2;
 			damageStr = -1;
+			throw_range = 3;
 		}else if (role.getStr() >= 6 && role.getStr() < 8) {
 			to_hitStr = -1;
 			damageStr = 0;
+			throw_range = 4;
 		}else if (role.getStr() >= 8 && role.getStr() < 16) {
 			to_hitStr = 0;
 			damageStr = 0;
+			if(role.getStr() == 8 || role.getStr() == 9)
+				throw_range = 5;
+			else if(role.getStr() == 10 || role.getStr() == 11)
+				throw_range = 6;
+			else if(role.getStr() == 12 || role.getStr() == 13)
+				throw_range = 7;
+			else if(role.getStr() == 14 || role.getStr() == 14)
+				throw_range = 8;
 		}else if (role.getStr() == 16) {
 			to_hitStr = 0;
 			damageStr = 1;
+			throw_range = 9;
 		}else if (role.getStr() == 17) {
 			to_hitStr = 1;
 			damageStr = 1;
+			throw_range = 9;
 		}else if (role.getStr() == 18) {
 			to_hitStr = 1;
 			damageStr = 2;
+			throw_range = 10;
 		}else if (role.getStr() == 19 || role.getStr() == 20) {
 			to_hitStr = 1;
 			damageStr = 3;
+			throw_range = 11;
 		}else if (role.getStr() == 21 || role.getStr() == 22) {
 			to_hitStr = 2;
 			damageStr = 3;
+			throw_range = 11;
 		}else if (role.getStr() == 23) {
 			to_hitStr = 2;
 			damageStr = 4;
+			throw_range = 12;
 		}else if (role.getStr() == 24) {
 			to_hitStr = 2;
 			damageStr = 5;
+			throw_range = 13;
 		}else if (role.getStr() == 25) {
 			to_hitStr = 3;
 			damageStr = 6;
+			throw_range = 13;
 		}
+		
+		//System.out.println("To_hitStr: " + to_hitStr + ", damageStr: " + damageStr);
 	}
 	
 	/**
-	 * Funcao que calcula a influencia da forca na vida do jogador
+	 * Funcao que calcula a influencia da Destreza na vida do jogador
 	 */
-	public void Dexterity() { // Testar
+	public void Dexterity() { 
 		if(role.getDex() == 3)
 			to_hitDex = -3;
 		else if(role.getDex() == 4 || role.getDex() == 5)
@@ -604,9 +643,11 @@ public class Player extends GameObject {
 			to_hitDex = 10;
 		else if(role.getDex() == 25)
 			to_hitDex = 11;
+		
+		//System.out.println("to_hitDex: " + to_hitDex);
 	}
 	
-	public void Constitution() { // Testar
+	public void Constitution() { 
 		if(role.getCon() == 3)
 			cons_hp = -2;
 		else if(role.getCon() >= 4 && role.getCon() <= 6)
@@ -627,7 +668,7 @@ public class Player extends GameObject {
 	 * Quando o player realiza atividades ele pode aumentar o status de sua Forca,
 	 * Destreza, Constituicao e Sabedoria
 	 */
-	public void Exercise() { // Testar
+	public void Exercise() { 
 		if(getState_cap().equals(new String("Stressed")) || getState_cap().equals(new String("Strained"))) {
 			cap_Str++;
 			if(cap_Str == 10) {
@@ -646,27 +687,54 @@ public class Player extends GameObject {
 			setExe_Cos(getExe_Cos() + 1);
 		}
 		
-		if(getExe_Str() == 100) {
+		if(getExe_Str() == 50) {
+			setExe_Str(0);
 			if(role.getStr() < race.getmStr()) {
 				role.setStr(role.getStr()+1);
 				System.out.println("You feel strong!");
-			}
-		}if(getExe_Dex() == 50) {
+			}else
+				System.out.println("You're already as strong as you can get.");
+		}
+		if(getExe_Dex() == 50) {
+			setExe_Dex(0);
 			if(role.getDex() < race.getmDex()) {
 				role.setDex(role.getDex()+1);
 				System.out.println("You feel agile! You must have been working on your reflexes.");
-			}
-		}if(getExe_Cos() == 50) {
+			}else
+				System.out.println("You're already as agile as you can get.");
+		}
+		if(getExe_Cos() == 50) {
+			setExe_Cos(0);
 			if(role.getCon() < race.getmCon()) {
 				role.setCon(role.getCon()+1);
 				System.out.println("You feel tough! You must be leading a healthy life-style.");
-			}
-		}if(exe_Wis == 50) {
+			}else
+				System.out.println("You're already as tough as you can get.");
+		}
+		if(getExe_Wis() == 50) {
+			setExe_Wis(0);
 			if(role.getWis() < race.getmWis()) {
 				role.setWis(role.getWis()+1);
 				System.out.println("You feel wise!  You must have been very observant.");
 				// Se conseguir lançar uma magia Exercita o Wis
-			}
+			}else
+				System.out.println("You're already as wise as you can get.");
+		}
+		if(getExe_Int() == 1) {
+			setExe_Int(0);
+			if(role.getInt() < race.getmInt()) {
+				role.setInt(role.getInt()+1);
+				System.out.println("You feel smart! You must have been 200% USP Estudent");
+			}else
+				System.out.println("You're already as smart as you can get.");
+		}
+		if(getExe_Cha() == 1) {
+			setExe_Cha(0);
+			if(role.getCha() < race.getmCha()) {
+				role.setCha(role.getCha()+1);
+				System.out.println("You feel charismatic!");
+			}else
+				System.out.println("You're already as charismact as you can get.");
 		}
 	}
 
@@ -716,5 +784,69 @@ public class Player extends GameObject {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public int getMissing_xp() {
+		return missing_xp;
+	}
+
+	public void setMissing_xp(int missing_xp) {
+		this.missing_xp = missing_xp;
+	}
+
+	public int getExe_Wis() {
+		return exe_Wis;
+	}
+
+	public void setExe_Wis(int exe_Wis) {
+		this.exe_Wis = exe_Wis;
+	}
+
+	public int getExe_Int() {
+		return exe_Int;
+	}
+
+	public void setExe_Int(int exe_Int) {
+		this.exe_Int = exe_Int;
+	}
+
+	public int getExe_Cha() {
+		return exe_Cha;
+	}
+
+	public void setExe_Cha(int exe_Cha) {
+		this.exe_Cha = exe_Cha;
+	}
+
+	public int getVisible() {
+		return visible;
+	}
+
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
+
+	public int getInvi_count() {
+		return invi_count;
+	}
+
+	public void setInvi_count(int invi_count) {
+		this.invi_count = invi_count;
+	}
+
+	public int getThrow_range() {
+		return throw_range;
+	}
+
+	public void setThrow_range(int throw_range) {
+		this.throw_range = throw_range;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

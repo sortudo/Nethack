@@ -21,6 +21,7 @@ public class PotionHealing extends Potions{
 	
 	@Override
 	public void use(Player p, int index) {
+		p.setScore(p.getScore() + 10);
 		System.out.println("You drinked " + this.getNome() +"! You feel healthy.");
 		p.setLife(p.getLife() + new Dices(7,4,0).Roll());
 		if(p.getLife() > p.getMax_life())

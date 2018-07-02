@@ -1,5 +1,6 @@
 package Itens;
 
+import PlayNet.Game;
 import PlayNet.GameObject;
 import PlayNet.Player;
 
@@ -44,6 +45,10 @@ public abstract class Item extends GameObject{
 
 	public void use(Player p) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void use(Player p, int index, Game g) {
+		
 	}
 
 	public String getDescricao() {

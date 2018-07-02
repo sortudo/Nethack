@@ -2,11 +2,15 @@ package PlayNet;
 import java.io.IOException;
 
 import Itens.Apple;
+import Itens.Arrow;
 import Itens.FoodRation;
 import Itens.Gold;
 import Itens.LongSword;
+import Itens.PotionAbility;
 import Itens.PotionExtraHealing;
 import Itens.PotionHealing;
+import Itens.PotionInvisibility;
+import Itens.PotionSleeping;
 import Itens.RingMail;
 import Lucky.Dices;
 import Monster.Jackal;
@@ -19,7 +23,9 @@ import Role.Barbarian;
 import Role.Healer;
 import Role.Knight;
 import Role.Priest;
+import Role.Ranger;
 import Role.Rogue;
+import Role.Wizard;
 
 /**
  * class Main: Aqui eh onde o jogo eh colocado em pratica
@@ -46,6 +52,8 @@ public class Main {
 		System.out.println("3 - Knight");
 		System.out.println("4 - Rogue");
 		System.out.println("5 - Healer");
+		System.out.println("6 - Ranger");
+		System.out.println("7 - Wizard");
 		classe = EntradaTeclado.leInt();
 		while(loop) {
 			if(classe == 1) {
@@ -62,6 +70,7 @@ public class Main {
 				loop = false;
 			}else if (classe == 4) {
 				p.setRole(new Rogue());
+				p.addInventory(new PotionInvisibility());
 				loop = false;
 			}else if(classe == 5){
 				p.setRole(new Healer());
@@ -69,6 +78,17 @@ public class Main {
 				p.addInventory(new Apple(new Dices(1,5,5).Roll()));
 				p.addInventory(new PotionHealing(4));
 				p.addInventory(new PotionExtraHealing(4));
+				loop = false;
+			}else if(classe == 6){
+				p.setRole(new Ranger());
+				p.addInventory(new FoodRation());
+				p.addInventory(new FoodRation());
+				p.addInventory(new Arrow(new Dices(1,100, 80).Roll()));
+				loop = false;
+			}else if(classe == 7){
+				p.addInventory(new PotionAbility());
+				p.addInventory(new PotionSleeping(1));
+				p.addInventory(new PotionHealing(1));
 				loop = false;
 			}else {
 				System.out.println("Number incorrect!");
@@ -149,5 +169,14 @@ public class Main {
 			System.out.println(p.getName() + " the "+ p.getClasse() + "\t\t\t"+ "St:" + p.getSt() + " Dx:" + p.getDx() + " Co:" + p.getCo() + " In:" + p.getIn() + " Wi:" + p.getWi() +" Ch:" + p.getCh() + " " + p.getState_cap());
 			System.out.println("Level:" + p.getNivel() + "\t\t\t" +  "$:" + p.getGold() + " HP:" + p.getLife() + "(" + p.getMax_life() + ")" + " PW:" + p.getPower() + "(" + p.getMax_power() + ")" + " AC:" + p.getAC() + " Xp:"+ p.getXp() + " T:" + time + " " + p.getNu_state());
 		}
+		p.setScore(p.getScore() + p.getGold());
+		// Score tbm depende do nivel da dungeon
+		
+		System.out.println("Here lies...");	
+		System.out.println("Goodbye " + p.getName() + " the " + p.getRole().getName() + "...");
+		System.out.println("You died in The Dungeons of Doom on dungeon level XXX with " + p.getScore() + " points,");
+		System.out.println("and " + p.getGold() + " pieces of gold, after " + time + " moves.");
+		System.out.println("You were level " + p.getLevel() + " with a maximun of " + p.getMax_life() + " hit points when you died.");
+		System.out.println("R.I.P.");
 	}
 }
