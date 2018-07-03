@@ -3,16 +3,20 @@ import java.io.IOException;
 
 import Itens.Apple;
 import Itens.Arrow;
+import Itens.Axe;
 import Itens.FoodRation;
 import Itens.Gold;
+import Itens.LeatherArmor;
 import Itens.LongSword;
 import Itens.PotionAbility;
 import Itens.PotionExtraHealing;
 import Itens.PotionHealing;
 import Itens.PotionInvisibility;
+import Itens.PotionLevel;
 import Itens.PotionSleeping;
 import Itens.RingMail;
 import Lucky.Dices;
+import Monster.Gremlin;
 import Monster.Jackal;
 import Race.Dwarf;
 import Race.Elf;
@@ -37,9 +41,14 @@ public class Main {
 		int classe, time = 0;
 		boolean loop = true;
 		Game g = new Game(8,8);
-		Player p = new Player(4,4);
+		Player p = new Player(6,4);
 		g.put(p);
+		g.put(new PotionLevel(2,1));
 		g.put(new Jackal(2,3));
+		g.put(new Apple(5,2,2));
+		g.put(new Axe(2,4));
+		g.put(new LeatherArmor(2,5));
+		g.put(new PotionAbility(2,6));
 		/**
 		 * O jogo comeca com o jogador criando o seu personagem
 		 * Escolhendo nome, classe, raça e sexo
@@ -86,6 +95,7 @@ public class Main {
 				p.addInventory(new Arrow(new Dices(1,100, 80).Roll()));
 				loop = false;
 			}else if(classe == 7){
+				p.setRole(new Wizard());
 				p.addInventory(new PotionAbility());
 				p.addInventory(new PotionSleeping(1));
 				p.addInventory(new PotionHealing(1));

@@ -80,7 +80,7 @@ public abstract class Monster extends GameObject{
 			p.setExe_Str(p.getExe_Str()+1);
 			int to_hit = new Dices(1,20,0).Roll();
 			//System.out.println("to_hitDices: " + to_hit);
-			int to_hit_bonus = 3;
+			int to_hit_bonus = 5;
 			to_hit_bonus += p.getWield_w().getHitBonus();
 			to_hit_bonus += p.getTo_hitStr();
 			to_hit_bonus += p.getTo_hitDex();
@@ -105,8 +105,9 @@ public abstract class Monster extends GameObject{
 						total_damage = 1;
 					
 				}
-				System.out.println("total_damage: " + total_damage + ", hp: " + hp);
 				hp -= total_damage;
+				p.setReg_count(0);
+				p.setPw_count(0);
 				System.out.println("You hitted " + getName() + "!");
 				
 				if(hp <= 0) {
@@ -117,6 +118,16 @@ public abstract class Monster extends GameObject{
 				}
 			}else
 				System.out.println("You missed the attack!");
+		}
+		if(hp > 0) {
+			int to_hit = new Dices(1,20,0).Roll();
+			int target_number = 10 + p.getAC() + level;
+			if(to_hit < target_number) {
+				System.out.println(name + " hitted you!");
+				p.setLife(p.getLife() - damage.Roll());
+			}else {
+				System.out.println(name + " missed the attack!");
+			}
 		}
 	}
 	public String getName() {
